@@ -69,9 +69,6 @@ public class Store {
         }
 
 
-
-
-
     public static void displayProducts(ArrayList<Product> inventory,
                                        ArrayList<Product> cart,
                                        Scanner scanner) {
@@ -109,8 +106,12 @@ public class Store {
      *
      * @return the matching Product, or null if not found
      */
-    public static Product findProductById(String id, ArrayList<Product> inventory) {
-        // TODO: loop over the list and compare ids
+    public static Product findProductById(String productId, ArrayList<Product> inventory) {
+        for (Product p : inventory) {
+            if (p.getProductId().equalsIgnoreCase(productId)) {
+                return p;
+            }
+        }
         return null;
     }
 }
