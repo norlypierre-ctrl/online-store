@@ -121,7 +121,7 @@ public class Store {
         String input = scanner.nextLine().trim();
 
         if (input.equalsIgnoreCase("C")) {
-            //
+            checkOut(cart, totalAmount,scanner);
         } else if (input.equalsIgnoreCase("X")) {
             return;
         } else {
