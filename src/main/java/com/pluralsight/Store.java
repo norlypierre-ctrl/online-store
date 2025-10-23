@@ -99,20 +99,37 @@ public class Store {
     }
 
     public static void displayCart(ArrayList<Product> cart, Scanner scanner) {
-        // TODO:
-        //   • list each product in the cart
-        //   • compute the total cost
-        //   • ask the user whether to check out (C) or return (X)
-        //   • if C, call checkOut(cart, totalAmount, scanner)
+
+        if (cart.isEmpty()) {
+            System.out.println("\nYour cart is empty.");
+            return;
+        }
+        System.out.println("\nShopping Cart:");
+        System.out.println("--------------------------------------------------");
+
+        double total = 0.0;
+
+        for (Product p : cart) {
+            System.out.println(p);
+            total += p.getProductPrice();
+        }
+
+        System.out.printf("The Total: %.2f%n", total);
+
+        System.out.println("\nEnter 'C' to check out or 'X' to return:");
+        System.out.print("choice: ");
+        String input = scanner.nextLine().trim();
+
+        if (input.equalsIgnoreCase("C")) {
+            //
+        } else if (input.equalsIgnoreCase("X")) {
+            return;
+        } else {
+            System.out.println("Invalid Choice.");
+        }
     }
 
-    /**
-     * Handles the checkout process:
-     * 1. Confirm that the user wants to buy.
-     * 2. Accept payment and calculate change.
-     * 3. Display a simple receipt.
-     * 4. Clear the cart.
-     */
+
     public static void checkOut(ArrayList<Product> cart,
                                 double totalAmount,
                                 Scanner scanner) {
