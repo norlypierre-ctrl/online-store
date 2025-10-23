@@ -26,6 +26,6 @@ public class Product {
 
     public String toString() {
         return String.format("%s | %s | %.2f",
-                productId, productName, productName);
+                productId, productName, productPrice);
     }
 }
