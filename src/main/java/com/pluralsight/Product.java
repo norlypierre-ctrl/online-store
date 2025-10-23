@@ -1,10 +1,10 @@
-package com.Pluralsight;
+package com.pluralsight;
 
 public class Product {
 
-    private String productId;
-    private String productName;
-    private double productPrice;
+    private final String productId;
+    private final String productName;
+    private final double productPrice;
 
     public String getProductId() {
         return productId;

@@ -1,6 +1,8 @@
 package com.pluralsight;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -41,23 +43,35 @@ public class Store {
         scanner.close();
     }
 
-    /**
-     * Reads product data from a file and populates the inventory list.
-     * File format (pipe-delimited):
-     * id|name|price
-     * <p>
-     * Example line:
-     * A17|Wireless Mouse|19.99
-     */
-    public static void loadInventory(String fileName, ArrayList<Product> inventory) {
-        // TODO: read each line, split on "|",
-        //       create a Product object, and add it to the inventory list
-    }
 
-    /**
-     * Displays all products and lets the user add one to the cart.
-     * Typing X returns to the main menu.
-     */
+    public static void loadInventory(String fileName, ArrayList<Product> inventory) {
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+
+                if (line.trim().isEmpty() || line.startsWith("productId")) continue;
+
+                String[] parts = line.split("\\|");
+                if (parts.length != 3) continue;
+
+                final String productId = parts[0].trim();
+                final String productName = parts[1].trim();
+                final double productPrice = Double.parseDouble(parts[2].trim());
+
+                inventory.add(new Product(productId, productName, productPrice));
+            }
+
+            } catch(IOException e){
+                System.out.println("Error loading File: " + e.getMessage());
+
+            }
+        }
+
+
+
+
+
     public static void displayProducts(ArrayList<Product> inventory,
                                        ArrayList<Product> cart,
                                        Scanner scanner) {
