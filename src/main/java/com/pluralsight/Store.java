@@ -107,14 +107,14 @@ public class Store {
         System.out.println("\nShopping Cart:");
         System.out.println("--------------------------------------------------");
 
-        double total = 0.0;
+        double totalAmount = 0.0;
 
         for (Product p : cart) {
             System.out.println(p);
-            total += p.getProductPrice();
+            totalAmount += p.getProductPrice();
         }
 
-        System.out.printf("The Total: %.2f%n", total);
+        System.out.printf("The Total: %.2f%n", totalAmount);
 
         System.out.println("\nEnter 'C' to check out or 'X' to return:");
         System.out.print("choice: ");
@@ -133,14 +133,47 @@ public class Store {
     public static void checkOut(ArrayList<Product> cart,
                                 double totalAmount,
                                 Scanner scanner) {
-        // TODO: implement steps listed above
+        if (cart.isEmpty()) {
+            System.out.println("\nYour cart is empty.");
+            return;
+        }
+        System.out.printf("Total Amount Owed: %.2f%n", totalAmount);
+
+        double payment = 0.0;
+
+        while (true) {
+            System.out.print("Enter Payment Amount: $");
+            String input = scanner.nextLine().trim();
+            try {
+                payment = Double.parseDouble(input);
+
+                if (payment < totalAmount) {
+                    System.out.println("Insufficient Payment.");
+                } else {
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid Input.");
+            }
+        }
+
+        double change = payment - totalAmount;
+        System.out.printf("Change: %.2f%n", change);
+
+        System.out.println("\n--- Receipt---");
+        for (Product p : cart) {
+            System.out.println(p);
+        }
+        System.out.printf("Total: %.2f%n", totalAmount);
+        System.out.printf("Payment: %.2f%n", payment);
+        System.out.printf("Change: %.2f%n", change);
+        System.out.println();
+
+        cart.clear();
+
+        System.out.println("Thank-You for Your Purchase.");
     }
 
-    /**
-     * Searches a list for a product by its id.
-     *
-     * @return the matching Product, or null if not found
-     */
     public static Product findProductById(String productId, ArrayList<Product> inventory) {
         for (Product p : inventory) {
             if (p.getProductId().equalsIgnoreCase(productId)) {
