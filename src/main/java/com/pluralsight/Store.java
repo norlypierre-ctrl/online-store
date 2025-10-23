@@ -62,24 +62,42 @@ public class Store {
                 inventory.add(new Product(productId, productName, productPrice));
             }
 
-            } catch(IOException e){
-                System.out.println("Error loading File: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error loading File: " + e.getMessage());
 
-            }
         }
+    }
 
 
     public static void displayProducts(ArrayList<Product> inventory,
                                        ArrayList<Product> cart,
                                        Scanner scanner) {
-        // TODO: show each product (id, name, price),
-        //       prompt for an id, find that product, add to cart
+        while (true) {
+            System.out.println("\nAvailable Products:");
+            System.out.println("--------------------------------------------------");
+
+            for (Product p : inventory) {
+                System.out.println(p);
+            }
+
+            System.out.println("\nEnter the Product ID to add to cart, or 'X' to return:");
+            System.out.print("choice: ");
+            String input = scanner.nextLine().trim();
+
+            if (input.equalsIgnoreCase("X")) {
+                break;
+            }
+
+            Product found = findProductById(input, inventory);
+
+            if (found != null) {
+                cart.add(found);
+                System.out.println(found.getProductName() + " added to your cart.");
+            } else
+                System.out.println("No product found try again.");
+        }
     }
 
-    /**
-     * Shows the contents of the cart, calculates the total,
-     * and offers the option to check out.
-     */
     public static void displayCart(ArrayList<Product> cart, Scanner scanner) {
         // TODO:
         //   • list each product in the cart
