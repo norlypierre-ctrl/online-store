@@ -1,24 +1,18 @@
 package com.pluralsight;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- * Starter code for the Online Store workshop.
- * Students will complete the TODO sections to make the program work.
- */
 public class Store {
 
     public static void main(String[] args) {
 
-        // Create lists for inventory and the shopping cart
         ArrayList<Product> inventory = new ArrayList<>();
         ArrayList<Product> cart = new ArrayList<>();
 
-        // Load inventory from the data file (pipe-delimited: id|name|price)
         loadInventory("products.csv", inventory);
 
-        // Main menu loop
         Scanner scanner = new Scanner(System.in);
         int choice = -1;
         while (choice != 3) {
@@ -30,11 +24,12 @@ public class Store {
 
             if (!scanner.hasNextInt()) {
                 System.out.println("Please enter 1, 2, or 3.");
-                scanner.nextLine();                 // discard bad input
+                scanner.nextLine();
                 continue;
             }
+
             choice = scanner.nextInt();
-            scanner.nextLine();                     // clear newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1 -> displayProducts(inventory, cart, scanner);
